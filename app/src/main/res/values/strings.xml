@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">GSMcontroller</string>
+    <string name="action_sign_in_short">Register</string>
+    <string name="email">Email</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="send_password_reset_email">Send Password reset email</string>
+    <string name="remove_user">Remove user</string>
+    <string name="new_pass">New Password</string>
+    <string name="title_activity_profile">Firebase</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_link_to_register">Do not have an account.Get Registered now!</string>
+    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="hint_new_email">New Email</string>
+    <string name="btn_change">Change</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_remove">Remove</string>
+    <string name="btn_sign_out">Sign Out</string>
+    <string name="lbl_forgot_password">Forgot password?</string>
+    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">GSMcontroller</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Instruction_heading">How To Use!</string>
+    <string name="Instructions">
+        \n
+        1) First add your rooms in which the devices are installed. \n\n
+        2) Then add your WIFI name and password. \n\n
+        3) Now when you go out without swtiching on/off the devices, based on your past habits you will be notified.\n\n
+        4) Now from outside also you can control your devices through this app.\n\n
+        5) If you want to switch on your device then you have to send <b>ON</b> to the sim (inserted in the device)
+           or if you want to send switch off your device then you have to send <b>OFF</b>.\n\n
+        <!--6) If you don\'t have the required compatible device,you can buy it from the below link. \n-->
+        <!--<a href="https://www.amazon.in/Febo-Solution-based-switch-Mobile/dp/B074DT34MB?tag=googinhydr18418-21%26tag=googinkenshoo-21%26ascsubtag=_k_Cj0KCQiAtvPjBRDPARIsAJfZz0ovYujAb_7h6GjWj0h_xROE89W_OQEe1aspmwpp1j_fXIuGsfOd1N8aAuagEALw_wcB_k_&gclid=Cj0KCQiAtvPjBRDPARIsAJfZz0ovYujAb_7h6GjWj0h_xROE89W_OQEe1aspmwpp1j_fXIuGsfOd1N8aAuagEALw_wcB"><b>Link  To Purchase The Device</b></a>-->
+        \n\n
+    </string>
+    <string name="help">
+        \n
+            <b>     Quick start</b>
+        \n\n
+        1)Each <b>device tab</b> represents one remote <b>recipient</b> of sms messages(commands).Each recepient has it\'s own <b>name and phone number.</b>
+        \n\n
+        2)Each <b>button</b> within a device sends one predefined sms message to that number. Button has a visible <b>label</b> (friendly name) and a <b>message</b>(sms content) which will be sent.
+        \n\n\n
+        <b>Privacy Policy</b>\n\n
+        1)This application has no way of knowing anything about your home alarm system, car alarm, personal details or anything similar.\n
+        <b>This app does not collect any personal data and does not send anything back to the developer.</b>\n\n
+        2)Getting any kind of response to the message sent, it depends completely on the remote device. This application has no influence or knowlwdge about that.\n\n
+    </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Help_heading">Help</string>
+</resources>

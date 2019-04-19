@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.optionmenu.MainActivity">
+    <item  android:id="@+id/item1"
+        android:title="Device name and phone no."/>
+    <item android:id="@+id/item2"
+        android:title="Get User ID"/>
+    <item android:id="@+id/item3"
+        android:title="Change Password"/>
+    <item  android:id="@+id/item4"
+        android:title="logout"
+        app:showAsAction="withText"/>
+</menu>
