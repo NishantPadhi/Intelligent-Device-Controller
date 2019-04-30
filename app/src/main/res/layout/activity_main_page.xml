@@ -20,47 +20,54 @@
             android:background="@color/colorPrimaryDark"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:visibility="visible" />
+            android:visibility="visible">
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu"
+                android:onClick="draweropen"/>
+        </android.support.v7.widget.Toolbar>
         <Button
             android:id="@+id/btn1"
-            android:layout_marginLeft="55dp"
+
             android:layout_marginTop="60dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:onClick="Dialogue1"
             android:text="Setup-1"
 
             android:textStyle="bold"
             android:textSize="25dp"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btn2"
-            android:layout_marginLeft="55dp"
+
             android:layout_marginTop="20dp"
             android:layout_below="@id/btn1"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:onClick="Dialogue2"
             android:text="Setup-2"
 
             android:textStyle="bold"
             android:textSize="25dp"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btn3"
             android:layout_below="@id/btn2"
-            android:layout_marginLeft="55dp"
+
             android:layout_marginTop="20dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:onClick="Dialogue3"
             android:text="Setup-3"
 
             android:textStyle="bold"
             android:textSize="25dp"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 

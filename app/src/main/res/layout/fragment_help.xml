@@ -18,22 +18,25 @@ android:background="@drawable/main_background">
     android:textStyle="bold"
     android:text="@string/Help_heading"
     android:textSize="25dp"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/article_heading">
-    <TextView
-        android:id="@+id/Instructions"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/article_heading"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="0dp"
-        android:textStyle="bold"
-        android:text="@string/help"
-        android:textSize="20dp"
-        android:autoLink="web"
-        android:lineSpacingExtra="@dimen/line_spacing"/>
-</ScrollView>
+        android:layout_marginTop="-4dp">
+
+        <TextView
+            android:id="@+id/help"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/article_heading"
+            android:layout_marginTop="0dp"
+            android:autoLink="web"
+            android:lineSpacingExtra="@dimen/line_spacing"
+            android:text="@string/help"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </ScrollView>
 
 </RelativeLayout>

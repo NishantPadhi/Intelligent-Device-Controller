@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.devicecontrollernew">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,10 +14,14 @@
         android:roundIcon="@mipmap/icon1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <service
+            android:name=".Location"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".Help" />
         <activity
             android:name=".MainPage"
-
-
             android:parentActivityName=".LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -39,8 +46,7 @@
             android:parentActivityName=".SplashActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SplashActivity"/>
-
+                android:value=".SplashActivity" />
         </activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
