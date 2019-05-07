@@ -247,7 +247,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 //
                          //   userid = databaseDevice.push().getKey();
                             Device device = new Device(userid, name, number, Double.parseDouble(value_lat),Double.parseDouble(value_lng),d1,d2,d3);
-                            databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lat+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
+                          //  databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lat+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
                             databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
@@ -323,7 +323,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                                         boolean d2=Boolean.parseBoolean(dataSnapshot.child("d2").getValue().toString());
                                         boolean d3=Boolean.parseBoolean(dataSnapshot.child("d3").getValue().toString());
                                         Device device = new Device(userid, name, number, lat, lon,d1,d2,d3);
-                                        databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + lat + "Longitude: " + lon+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
+                                     //   databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + lat + "Longitude: " + lon+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
                                         databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
@@ -351,8 +351,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
                 return true;
             case R.id.item2:
-
-                Toast.makeText(getApplicationContext(), userid, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), Current.getEmail(), Toast.LENGTH_LONG).show();
                 return true;
 //            case R.id.item3:
 //                return true;
@@ -462,7 +461,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String number = dataSnapshot.child("number").getValue().toString();
-                        boolean d1;
+                        boolean d1=true;
                         boolean d2=Boolean.parseBoolean(dataSnapshot.child("d2").getValue().toString());
                         boolean d3=Boolean.parseBoolean(dataSnapshot.child("d3").getValue().toString());
                         String id=dataSnapshot.child("id").getValue().toString();
@@ -479,24 +478,27 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                             if(m.compareTo("on")==0) {
                                 mess = "R1";
                                 d1=true;
+
                             }
-                            else {
+                            else if(m.compareTo("off")==0) {
                                 mess = "O1";
                                 d1=false;
                             }
-                            SmsManager sms = SmsManager.getDefault();
-                            sms.sendTextMessage(number, null,mess, null, null);
-                            Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng),d1,d2,d3);
-                            databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
-                            databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("nosave", e + "");
+                            if(mess.compareTo("R1")==0||mess.compareTo("01")==0) {
+                                SmsManager sms = SmsManager.getDefault();
+                                sms.sendTextMessage(number, null, mess, null, null);
+                                Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng), d1, d2, d3);
+                                //   databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
+                                databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("nosave", e + "");
 
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         catch(Exception e)
                         {
@@ -557,7 +559,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String number = dataSnapshot.child("number").getValue().toString();
                         boolean d1=Boolean.parseBoolean(dataSnapshot.child("d1").getValue().toString());
-                        boolean d2=Boolean.parseBoolean(dataSnapshot.child("d2").getValue().toString());
+                        boolean d2=true;
                         boolean d3=Boolean.parseBoolean(dataSnapshot.child("d3").getValue().toString());
                         String id=dataSnapshot.child("id").getValue().toString();
                         String name=dataSnapshot.child("name").getValue().toString();
@@ -567,27 +569,37 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
                             Toast.makeText(getApplicationContext(),"Please grant permission first and then try again.", Toast.LENGTH_LONG).show();
                         }
-                        try
-                        {
-                            SmsManager sms = SmsManager.getDefault();
-                            sms.sendTextMessage(number, null, m, null, null);
-                            Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng),d1,d2,d3);
-                            databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
-                            databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("nosave", e + "");
+                        try {
+                            String mess = "";
+                            if (m.compareTo("on") == 0) {
+                                mess = "R2";
+                                d2 = true;
+                            } else if (m.compareTo("off") == 0) {
+                                mess = "O2";
+                                d2 = false;
+                            }
+                            if (mess.compareTo("R2") == 0 || mess.compareTo("02") == 0) {
+                                SmsManager sms = SmsManager.getDefault();
+                                sms.sendTextMessage(number, null, mess, null, null);
+                                Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng), d1, d2, d3);
+                                //  databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
+                                databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("nosave", e + "");
 
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         catch(Exception e)
-                        {
-                            Toast.makeText(getApplicationContext(),"Kindly grant message permission first", Toast.LENGTH_SHORT).show();
-                        }
-                        //   Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
+                            {
+                                Toast.makeText(getApplicationContext(), "Kindly grant message permission first", Toast.LENGTH_SHORT).show();
+                            }
+                            //   Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
+
                     }
 
                     @Override
@@ -640,7 +652,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                         String number = dataSnapshot.child("number").getValue().toString();
                         boolean d1=Boolean.parseBoolean(dataSnapshot.child("d1").getValue().toString());
                         boolean d2=Boolean.parseBoolean(dataSnapshot.child("d2").getValue().toString());
-                        boolean d3=Boolean.parseBoolean(dataSnapshot.child("d3").getValue().toString());
+                        boolean d3=true;
                         String id=dataSnapshot.child("id").getValue().toString();
                         String name=dataSnapshot.child("name").getValue().toString();
                         // TODO : add code to send sms
@@ -651,19 +663,30 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                         }
                         try
                         {
-                            SmsManager sms = SmsManager.getDefault();
-                            sms.sendTextMessage(number, null, m, null, null);
-                            Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng),d1,d2,d3);
-                            databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
-                            databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("nosave", e + "");
+                            String mess="";
+                            if(m.compareTo("on")==0) {
+                                mess = "R3";
+                                d3=true;
+                            }
+                            else if(m.compareTo("off")==0){
+                                mess = "O3";
+                                d3=false;
+                            }
+                            if(mess.compareTo("R3")==0||mess.compareTo("03")==0) {
+                                SmsManager sms = SmsManager.getDefault();
+                                sms.sendTextMessage(number, null, mess, null, null);
+                                Device device = new Device(userid, name, number, Double.parseDouble(value_lat), Double.parseDouble(value_lng), d1, d2, d3);
+                                //      databaseDevice.push().setValue("ID: " + id + "Name: " + name + "Number " + number + "Latitude: " + value_lat + "Longitude: " + value_lng+"Device1: "+d1+"Device2: "+d2+"Device3: "+d3);
+                                databaseDevice.child(userid).setValue(device).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("nosave", e + "");
 
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         catch(Exception e)
                         {

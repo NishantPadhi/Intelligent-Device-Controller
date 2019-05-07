@@ -99,82 +99,102 @@ public class Location extends Service implements GoogleApiClient.ConnectionCallb
         Log.i(LOGSERVICE, "lng " + location.getLongitude());
        // LatLng mLocation = (new LatLng(location.getLatitude(), location.getLongitude()));
       //  EventBus.getDefault().post(mLocation);
-        databaseDevice.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                double lat=Double.parseDouble(dataSnapshot.child("latitude").getValue().toString());
-                double lon=Double.parseDouble(dataSnapshot.child("longitude").getValue().toString());
-                double clon=location.getLongitude();
-                double clat=location.getLatitude();
+        if(userid!=null) {
+            databaseDevice.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    double lat=0,lon=0;
+                    boolean d=false;
+                    if(dataSnapshot.child("d1").getValue()!=null)
+                            d=Boolean.parseBoolean(dataSnapshot.child("d1").getValue().toString());
+                    if(dataSnapshot.child("latitude").getValue()!=null)
+                        lat = Double.parseDouble(dataSnapshot.child("latitude").getValue().toString());
+                    if(dataSnapshot.child("longitude").getValue()!=null)
+                    lon = Double.parseDouble(dataSnapshot.child("longitude").getValue().toString());
+                    double clon = location.getLongitude();
+                    double clat = location.getLatitude();
 
-                float[] results = new float[1];
-                android.location.Location.distanceBetween(lat, lon, clat, clon, results);
-                float distance = results[0];
+                    float[] results = new float[1];
+                    android.location.Location.distanceBetween(lat, lon, clat, clon, results);
+                    float distance = results[0];
 
-                if(distance>100)
-                {
-//                    int id=0;
-//                    Intent notificationIntent = new Intent(getApplicationContext(),MainPage.class);
-//                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-//                            notificationIntent, 0);
-//
-//                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
-//                            .setContentTitle("GSM Controller")
-//                            .setSmallIcon(R.mipmap.icon1)
-//                            .setContentText("Your device is on").setAutoCancel(true)
-//                            .setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH);
-//                    Notification notification = builder.build();
-//
-//                    Uri path= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                    builder.setSound(path);
-//                  NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-//                    {
-//                        String channelId="Gsm Controller";
-//                        NotificationChannel chan = new NotificationChannel(channelId, "Test", NotificationManager.IMPORTANCE_NONE);
-//                        chan.enableLights(false);
-//                        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-//                        notificationManager.createNotificationChannel(chan);
-//                        builder.setChannelId(channelId);
-//                    }
-//                    notificationManager.notify(1,notification);
-                    Intent notificationIntent = new Intent(getApplicationContext(),MainPage.class);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-                            notificationIntent, 0);
-                    String channelId="Gsm Controller";
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelId)
-                            .setSmallIcon(R.drawable.icon1)
-                            .setContentTitle("GSM Controller")
-                            .setContentText("Your device is on.")
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setContentIntent(pendingIntent)
-                            .setAutoCancel(true);
+                    if (distance > 100)
+                    {
+                        if(d==true)
+                        {
+                            Intent notificationIntent = new Intent(getApplicationContext(), SplashActivity.class);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                                    notificationIntent, 0);
+                            String channelId = "Gsm Controller";
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                                    .setSmallIcon(R.mipmap.icon1)
+                                    .setContentTitle("GSM Controller")
+                                    .setContentText("Your device is on.")
+                                    .setTicker("Do you want to switch it off?")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true);
 
-                    // Create the NotificationChannel, but only on API 26+ because
-                    // the NotificationChannel class is new and not in the support library
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        CharSequence name = getString(R.string.channel_name);
-                        String description = getString(R.string.channel_description);
-                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                        NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-                        channel.setDescription(description);
-                        // Register the channel with the system; you can't change the importance
-                        // or other notification behaviors after this
-                        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                        notificationManager.createNotificationChannel(channel);
-                    }
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                            // Create the NotificationChannel, but only on API 26+ because
+                            // the NotificationChannel class is new and not in the support library
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                CharSequence name = getString(R.string.channel_name);
+                                String description = getString(R.string.channel_description);
+                                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                                NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                                channel.setDescription(description);
+                                // Register the channel with the system; you can't change the importance
+                                // or other notification behaviors after this
+                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                notificationManager.createNotificationChannel(channel);
+                            }
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
 
 // notificationId is a unique int for each notification that you must define
-                    notificationManager.notify(1, builder.build());
+                            notificationManager.notify(1, builder.build());
+                        }
+                        else
+                        {
+                            Intent notificationIntent = new Intent(getApplicationContext(), SplashActivity.class);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                                    notificationIntent, 0);
+                            String channelId = "Gsm Controller";
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                                    .setSmallIcon(R.mipmap.icon1)
+                                    .setContentTitle("GSM Controller")
+                                    .setContentText("Your device is off.")
+                                    .setTicker("Do you want to switch it on?")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true);
+
+                            // Create the NotificationChannel, but only on API 26+ because
+                            // the NotificationChannel class is new and not in the support library
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                CharSequence name = getString(R.string.channel_name);
+                                String description = getString(R.string.channel_description);
+                                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                                NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                                channel.setDescription(description);
+                                // Register the channel with the system; you can't change the importance
+                                // or other notification behaviors after this
+                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                notificationManager.createNotificationChannel(channel);
+                            }
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+
+// notificationId is a unique int for each notification that you must define
+                            notificationManager.notify(1, builder.build());
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
     @Override
     public void onDestroy() {
